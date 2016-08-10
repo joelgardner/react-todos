@@ -8,6 +8,7 @@
 - Run `make`, `make run-dev-server`, and `make run-webpack-dev-server`
 - See the **[Configuration](#configuration)** section below (required)
 - Run `make install-database` to create/update the database (assuming you have a PostgreSQL backend set up and correct [configuration](#configuration) info) via [Postgrator](https://github.com/rickbergfalk/postgrator).
+- Run `postgraphql postgres://postgres:@localhost:5432/todos --schema todos --development` to start a [Postgraphql](https://github.com/calebmer/postgraphql) server
 - Navigate to `http://localhost:9000`
 
 ##Installation:
