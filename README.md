@@ -21,7 +21,7 @@
 
 ###Usage:
 - Navigate to `http://localhost:9000` to view the application
-- Navigate to `http://localhost:9001` to bring up [GraphiQL](https://github.com/graphql/graphiql), GraphQL's interactive IDE for testing GraphQL queries
+- Navigate to `http://localhost:3000` to bring up [GraphiQL](https://github.com/graphql/graphiql), GraphQL's interactive IDE for testing GraphQL queries
 
 ###Building (generally not necessary to get up and running locally)
 - `make build-client` will build two files:
