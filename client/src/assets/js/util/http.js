@@ -15,10 +15,16 @@ class Http {
 		.then(Http.handleResponse);
 	}
 
+  static del(url) {
+    return fetch(url, {
+      method: 'delete'
+    })
+    .then(() => { return true });
+  }
+
   static graphql(query) {
     return fetch('http://localhost:3000', {
       method: 'post',
-      //credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -29,13 +35,21 @@ class Http {
   }
 
 
-  static postJson(url, payload) {
+  static post(url, payload) {
+    return this._request(url, payload, 'post');
+  }
+
+  static put(url, payload) {
+    return this._request(url, payload, 'put');
+  }
+
+  static _request(url, payload, method) {
     return fetch(url, {
-      method: 'post',
+      method: method,
       body: typeof(payload) === "string" ? payload : JSON.stringify(payload),
       //credentials: 'same-origin',
       headers: {
-        //'Accept': 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     })

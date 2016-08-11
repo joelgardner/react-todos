@@ -16,28 +16,18 @@ app.disable('x-powered-by');
 
 
 /**
-AUTHENTICATION
-**/
-
-var Passport = require('passport');
-app.use(Passport.initialize());
-
-
-/**
 CUSTOM MIDDLEWARE
 **/
 
 var middleware = require('./services/middleware');
 app.use(middleware.http);
-Passport.use(middleware.jwt());
 
 
 /**
 ROUTING
 **/
 
-var authentication = Passport.authenticate('jwt', { session: false });
-middleware.routes(app, authentication);
+middleware.routes(app);
 
 /**
 INIT SERVER

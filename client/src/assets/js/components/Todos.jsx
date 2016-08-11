@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Todo from './Todo.jsx'
 
 //import { connect } from 'react-redux'
 
@@ -8,69 +9,54 @@ class Todos extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: ''
+      todoSubjectText: ''
     };
-
-    this.timeout = null;
   }
 
-  componentWillMount() {
-    this.setState({ searchText: this.props.filterText })
-  }
 
   render()  {
-    console.log(this.props.todos);
     return (
       <div>
         <div className="o-container o-container--medium">
           <div className="c-input-group">
-            <input className="c-field" placeholder="Enter a new todo..." type="text" />
-            <button className="c-button c-button--primary">Add Todo</button>
+            <input className="c-field" placeholder="Enter a new todo..." value={this.state.todoSubjectText} onKeyUp={(e) => this.handleKeyUp(e)} onChange={(e) => this.setState({ todoSubjectText: e.target.value })} type="text" />
+            <button className="c-button c-button--primary" onClick={e => this.props.onAddTodo(this.state.todoSubjectText)}>Add Todo</button>
           </div>
         </div>
         <div className="o-container o-container--large o-grid">
           <div className="o-grid__cell o-grido-panel-container">
             <h4>TODO</h4>
-            {this.props.todos.map(todo => (
-              <div className="c-card c-card--higher c-card--primary">
-                <div className="c-card__content c-card__content--divider">{todo.subject}</div>
-                <div className="c-card__content">
-                  <p className="c-paragraph">{todo.description}</p>
-                </div>
-              </div>
+            {this.props.todos_todo.map((todo, i) => (
+              <Todo todo={todo} onEditTodo={this.props.onEditTodo} onDeleteTodo={this.props.onDeleteTodo} key={i} />
             ))}
           </div>
           <div className="o-grid__cell o-grido-panel-container">
             <h4>DOING</h4>
+            {this.props.todos_doing.map((todo, i) => (
+              <Todo todo={todo} onEditTodo={this.props.onEditTodo} onDeleteTodo={this.props.onDeleteTodo} key={i} />
+            ))}
           </div>
           <div className="o-grid__cell o-grido-panel-container">
             <h4>DONE</h4>
+            {this.props.todos_done.map((todo, i) => (
+              <Todo todo={todo} onEditTodo={this.props.onEditTodo} onDeleteTodo={this.props.onDeleteTodo} key={i} />
+            ))}
           </div>
         </div>
       </div>
     )
   }
 
-  clearFilter() {
-    this.filterAddresses('');
-    const e = ReactDOM.findDOMNode(this.refs.filterInput);
-    e.value = '';
+  handleKeyUp(e) {
+    if (e.keyCode !== 13) return;
+
+
+    this.props.onAddTodo(this.state.todoSubjectText);
+    this.setState({ todoSubjectText: '' });
+
+
   }
 
-  debounce(fn, ms) {
-
-    // clear any currently active timeout
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }
-
-    // and set a new one
-    this.timeout = setTimeout(() => {
-      fn.call(this);
-      this.timeout = null;
-    }, ms);
-  }
 }
 
 export default Todos

@@ -101,6 +101,9 @@ exports.Validation = {
       if (!result[v.key]) result[v.key] = v.validationText;
       return result;
     }, null);
+  },
+  isOneOf: function(actual, possibleValues) {
+    return possibleValues.indexOf(actual) !== -1
   }
 };
 
